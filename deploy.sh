@@ -10,6 +10,7 @@ docker run -d \
   --name portfolio \
   --restart always \
   -p 8000:8000 \
+  --network proxy \
   --env-file /root/docker/portfolio/.env \
   portfolio
 
