@@ -20,4 +20,4 @@ jobs:
           script: |
             cd /root/docker/portfolio
             git pull
-            bash /root/deploy.sh
+            bash ./deploy.sh
