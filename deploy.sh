@@ -16,4 +16,4 @@ docker run -d \
 
 docker image prune -f
 
-echo "Deploy success"
+printf "\nDeploy success"

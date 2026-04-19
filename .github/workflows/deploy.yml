@@ -19,5 +19,7 @@ jobs:
           port: 2222
           script: |
             cd /root/docker/portfolio
+            git reset --hard
             git pull
+            chmod +x deploy.sh
             bash ./deploy.sh
