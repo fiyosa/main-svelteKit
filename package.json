@@ -26,5 +26,10 @@
     "tailwindcss": "^4.2.2",
     "typescript": "^6.0.2",
     "vite": "^8.0.7"
+  },
+  "dependencies": {
+    "@apollo/client": "^4.1.7",
+    "@apollo/server": "^5.5.0",
+    "graphql": "^16.13.2"
   }
 }
