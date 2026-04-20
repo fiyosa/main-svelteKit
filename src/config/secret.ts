@@ -7,6 +7,6 @@ export const secret = {
   },
 
   server: {
-    GRAPHQL_URL: privateEnv.GRAPHQL_URL || 'http://localhost:3000/graphql',
+    GRAPHQL_URL: privateEnv.PRIVATE_GRAPHQL_URL || 'http://localhost:3000/graphql',
   },
 }

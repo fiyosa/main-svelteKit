@@ -1,4 +1,4 @@
-import { gql, query } from '$lib/server/graphql/gql'
+import { gql, query } from '$lib/graphql/client'
 import type { PageServerLoad } from './$types'
 
 // Example query using gql tag

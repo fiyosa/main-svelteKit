@@ -9,12 +9,12 @@ const server = new ApolloServer({
   introspection: true,
 })
 
-let serverStarted = false
+let serverPromise: Promise<void> | null = null
+
 const startServer = async () => {
-  if (!serverStarted) {
-    await server.start()
-    serverStarted = true
-  }
+  if (!serverPromise) serverPromise = server.start()
+
+  return serverPromise
 }
 
 const handler: RequestHandler = async (event) => {

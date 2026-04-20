@@ -1,5 +1,3 @@
-// src/lib/server/gql/schema/queryPing.ts
-
 export const typeDefs = `#graphql
   extend type Query {
     hello: String
