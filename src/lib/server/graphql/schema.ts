@@ -10,11 +10,7 @@ const baseTypeDefs = `#graphql
   }
 `
 
-export const typeDefs = [
-  baseTypeDefs,
-  ...guestTypeDefs,
-  ...userTypeDefs,
-]
+export const typeDefs = [baseTypeDefs, ...guestTypeDefs, ...userTypeDefs]
 
 export const resolvers = {
   Query: {

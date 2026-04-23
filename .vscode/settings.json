@@ -1,16 +1,16 @@
 {
-	"editor.defaultFormatter": "esbenp.prettier-vscode",
-	"editor.formatOnSave": true,
-	"editor.guides.indentation": true,
-	"editor.tabSize": 2,
-	"search.exclude": {
-		"**/node_modules": true,
-		"**/vendor": true,
-		"*.lock": true,
-		"*lock.json": true,
-		"pnpm*": true
-	},
-	"files.associations": {
-		"*.css": "tailwindcss"
-	}
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "editor.guides.indentation": true,
+  "editor.tabSize": 2,
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/vendor": true,
+    "*.lock": true,
+    "*lock.json": true,
+    "pnpm*": true
+  },
+  "files.associations": {
+    "*.css": "tailwindcss"
+  }
 }

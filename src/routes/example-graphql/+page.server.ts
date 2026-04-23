@@ -1,8 +1,8 @@
-import { gql, query } from '$lib/graphql/client'
+import { graphql } from '$lib/public'
 import type { PageServerLoad } from './$types'
 
 // Example query using gql tag
-const GET_DATA = gql`
+const GET_DATA = graphql.gql`
   query GetAppInfo {
     hello
     ping
@@ -17,7 +17,7 @@ const GET_DATA = gql`
 export const load: PageServerLoad = async () => {
   try {
     // Use the Apollo Client wrapper
-    const data = await query<{ hello: string; user: any }>(GET_DATA)
+    const data = await graphql.query<{ hello: string; user: any }>(GET_DATA)
 
     if (!data) {
       throw new Error('No data received from GraphQL server')

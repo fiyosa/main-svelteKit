@@ -7,6 +7,11 @@ export const secret = {
   },
 
   server: {
+    APP_ENV: privateEnv.PRIVATE_APP_ENV || 'development',
+    APP_SECRET: privateEnv.PRIVATE_APP_SECRET || 'secret',
+
     GRAPHQL_URL: privateEnv.PRIVATE_GRAPHQL_URL || 'http://localhost:3000/graphql',
+    DB_URL: privateEnv.PRIVATE_DB_URL || 'postgresql://postgres:postgres@localhost:5432/db',
+    DB_SCHEMA: privateEnv.PRIVATE_DB_SCHEMA || 'public',
   },
 }

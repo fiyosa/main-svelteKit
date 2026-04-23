@@ -11,13 +11,27 @@
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
     "lint": "prettier --check .",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate"
   },
-  "devDependencies": {
+  "dependencies": {
+    "@apollo/client": "^4.1.7",
+    "@apollo/server": "^5.5.0",
     "@sveltejs/adapter-node": "^5.5.4",
     "@sveltejs/kit": "^2.57.0",
     "@sveltejs/vite-plugin-svelte": "^7.0.0",
     "@tailwindcss/vite": "^4.2.2",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/pg": "^8.20.0",
+    "bcryptjs": "^3.0.3",
+    "drizzle-kit": "1.0.0-beta.22",
+    "drizzle-orm": "1.0.0-beta.22",
+    "graphql": "^16.13.2",
+    "hashids": "^2.3.0",
+    "i18next": "^26.0.6",
+    "jsonwebtoken": "^9.0.3",
+    "postgres": "^3.4.9",
     "prettier": "^3.8.1",
     "prettier-plugin-svelte": "^3.5.1",
     "prettier-plugin-tailwindcss": "^0.7.2",
@@ -25,11 +39,9 @@
     "svelte-check": "^4.4.6",
     "tailwindcss": "^4.2.2",
     "typescript": "^6.0.2",
-    "vite": "^8.0.7"
-  },
-  "dependencies": {
-    "@apollo/client": "^4.1.7",
-    "@apollo/server": "^5.5.0",
-    "graphql": "^16.13.2"
+    "vite": "^8.0.7",
+    "winston": "^3.19.0",
+    "zod": "^4.3.6",
+    "zod-i18n-map": "^2.27.0"
   }
 }
