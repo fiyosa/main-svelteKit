@@ -9,6 +9,7 @@ export const secret = {
   server: {
     APP_ENV: privateEnv.PRIVATE_APP_ENV || 'development',
     APP_SECRET: privateEnv.PRIVATE_APP_SECRET || 'secret',
+    APP_LOCALE: privateEnv.PRIVATE_APP_LOCALE || 'en',
 
     GRAPHQL_URL: privateEnv.PRIVATE_GRAPHQL_URL || 'http://localhost:3000/graphql',
     DB_URL: privateEnv.PRIVATE_DB_URL || 'postgresql://postgres:postgres@localhost:5432/db',
