@@ -1,4 +1,5 @@
 import { graphql } from '$lib/public'
+import logger from '$lib/server/logger'
 import type { PageServerLoad } from './$types'
 
 // Example query using gql tag
@@ -15,6 +16,7 @@ const GET_DATA = graphql.gql`
 `
 
 export const load: PageServerLoad = async () => {
+  logger.file.info({ name: 'tes' })
   try {
     // Use the Apollo Client wrapper
     const data = await graphql.query<{ hello: string; user: any }>(GET_DATA)

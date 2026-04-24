@@ -1,5 +1,6 @@
 import { guestTypeDefs, guestResolvers } from './modules/guest'
 import { userTypeDefs, userResolvers } from './modules/user'
+import { authTypeDefs, authResolvers } from './modules/auth'
 
 const baseTypeDefs = `#graphql
   type Query {
@@ -10,11 +11,14 @@ const baseTypeDefs = `#graphql
   }
 `
 
-export const typeDefs = [baseTypeDefs, ...guestTypeDefs, ...userTypeDefs]
+export const typeDefs = [baseTypeDefs, ...guestTypeDefs, ...userTypeDefs, ...authTypeDefs]
 
 export const resolvers = {
   Query: {
     ...guestResolvers.Query,
     ...userResolvers.Query,
+  },
+  Mutation: {
+    ...authResolvers.Mutation,
   },
 }

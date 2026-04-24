@@ -13,7 +13,8 @@
     "lint": "prettier --check .",
     "format": "prettier --write .",
     "db:generate": "drizzle-kit generate",
-    "db:migrate": "drizzle-kit migrate"
+    "db:migrate": "drizzle-kit migrate",
+    "db:seed": "npx tsx --env-file=.env src/lib/server/db/commands/seeder.ts"
   },
   "dependencies": {
     "@apollo/client": "^4.1.7",
@@ -24,6 +25,7 @@
     "@tailwindcss/vite": "^4.2.2",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/pg": "^8.20.0",
+    "axios": "^1.15.2",
     "bcryptjs": "^3.0.3",
     "drizzle-kit": "1.0.0-beta.22",
     "drizzle-orm": "1.0.0-beta.22",

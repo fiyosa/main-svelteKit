@@ -1,33 +1,33 @@
-import { pgTable } from 'drizzle-orm/pg-core'
 import { defineRelations } from 'drizzle-orm'
+import { pgTable } from 'drizzle-orm/pg-core'
 import { users } from './users'
 
-export const user_details = pgTable('user_details', (t) => ({
+export const auths = pgTable('auths', (t) => ({
   id: t.bigserial('id', { mode: 'number' }).primaryKey(),
   user_id: t
     .bigint('user_id', { mode: 'number' })
     .notNull()
-    .references(() => users.id, { onUpdate: 'cascade', onDelete: 'cascade' }),
+    .references(() => users.id),
 
-  name: t.varchar('first_name').notNull(),
-  lastName: t.varchar('last_name').notNull(),
+  token: t.text('token').notNull(),
+  revoke: t.boolean('revoke').default(false).notNull(),
 
   created_at: t.timestamp('created_at', { precision: 0 }).defaultNow().notNull(),
   updated_at: t.timestamp('updated_at', { precision: 0 }).defaultNow().notNull(),
 }))
 
-export const userDetailsRelations = defineRelations({ user_details, users }, (r) => ({
-  user_details: {
+export const authsRelations = defineRelations({ auths, users }, (r) => ({
+  auths: {
     user: r.one.users({
-      from: r.user_details.user_id,
+      from: r.auths.user_id,
       to: r.users.id,
     }),
   },
 
   users: {
-    user_details: r.one.user_details({
+    auths: r.many.auths({
       from: r.users.id,
-      to: r.user_details.user_id,
+      to: r.auths.user_id,
     }),
   },
 }))
