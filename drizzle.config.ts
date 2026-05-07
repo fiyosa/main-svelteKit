@@ -7,5 +7,5 @@ export default defineConfig({
   dbCredentials: {
     url: process.env.PRIVATE_DB_URL || 'postgresql://postgres:postgres@localhost:5432/db',
   },
-  migrations: { schema: 'public', table: '__drizzle_migrations' },
+  // migrations: { schema: 'public', table: '__drizzle_migrations' },
 })

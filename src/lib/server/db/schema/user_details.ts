@@ -1,5 +1,5 @@
 import { pgTable } from 'drizzle-orm/pg-core'
-import { defineRelations } from 'drizzle-orm'
+import { relations } from 'drizzle-orm'
 import { users } from './users'
 
 export const user_details = pgTable('user_details', (t) => ({
@@ -16,18 +16,9 @@ export const user_details = pgTable('user_details', (t) => ({
   updated_at: t.timestamp('updated_at', { precision: 0 }).defaultNow().notNull(),
 }))
 
-export const userDetailsRelations = defineRelations({ user_details, users }, (r) => ({
-  user_details: {
-    user: r.one.users({
-      from: r.user_details.user_id,
-      to: r.users.id,
-    }),
-  },
-
-  users: {
-    user_details: r.one.user_details({
-      from: r.users.id,
-      to: r.user_details.user_id,
-    }),
-  },
+export const userDetailsRelations = relations(user_details, ({ one }) => ({
+  user: one(users, {
+    fields: [user_details.user_id],
+    references: [users.id],
+  }),
 }))

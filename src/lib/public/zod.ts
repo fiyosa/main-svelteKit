@@ -2,7 +2,7 @@ import i18next from 'i18next'
 import id from 'zod-i18n-map/locales/id/zod.json'
 import en from 'zod-i18n-map/locales/en/zod.json'
 import { zodI18nMap } from 'zod-i18n-map'
-import { ZodType, z } from 'zod'
+import { ZodType, z, ZodError } from 'zod'
 import { secret } from '$config/secret'
 
 i18next.init({
@@ -19,4 +19,4 @@ const validate = <T>(zodType: ZodType<T>, data: T): T => {
   return zodType.parse(data)
 }
 
-export { z, ZodType, validate }
+export { z as create, ZodType as type, ZodError, validate }

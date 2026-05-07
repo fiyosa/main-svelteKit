@@ -26,3 +26,4 @@ vite.config.ts.timestamp-*
 *lock.json
 pnpm*
 logs
+drizzle

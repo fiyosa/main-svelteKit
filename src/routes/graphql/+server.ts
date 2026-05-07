@@ -1,12 +1,43 @@
 import { ApolloServer } from '@apollo/server'
 import { typeDefs, resolvers } from '$lib/server/graphql/schema'
 import type { RequestHandler } from './$types'
+import { secret } from '$config/secret'
+import { zod } from '$lib/public'
 
 // Initialize Apollo Server
 const server = new ApolloServer({
   typeDefs,
   resolvers,
   introspection: true,
+  includeStacktraceInErrorResponses: secret.server.APP_ENV === 'development',
+  formatError: (formattedError, error: any) => {
+    // 1. Tangkap ZodError dari resolver
+    const originalError = error?.originalError
+    if (originalError instanceof zod.ZodError) {
+      return {
+        ...formattedError,
+        message: 'Validation failed',
+        extensions: {
+          ...formattedError.extensions,
+          code: 'BAD_USER_INPUT',
+          validationErrors: originalError.issues.map((issue) => ({
+            field: issue.path.join('.'),
+            message: issue.message,
+          })),
+        },
+      }
+    }
+
+    // 2. Format ulang error BAD_USER_INPUT bawaan GraphQL
+    if (formattedError.extensions?.code === 'BAD_USER_INPUT') {
+      return {
+        ...formattedError,
+        message: 'Input tidak valid atau tidak sesuai skema',
+      }
+    }
+
+    return formattedError
+  },
 })
 
 let serverPromise: Promise<void> | null = null
