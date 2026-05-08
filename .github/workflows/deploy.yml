@@ -23,6 +23,8 @@ jobs:
             pnpm i --prod
 
   deploy:
+    needs: prepare
+    if: always() && (needs.prepare.result == 'success' || needs.prepare.result == 'skipped')
     runs-on: ubuntu-latest
     steps:
       - name: Deploy ke VPS
