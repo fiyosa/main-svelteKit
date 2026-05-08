@@ -1,4 +1,4 @@
-import { ILang } from './lang'
+import { type ILang } from './lang'
 
 export const en: ILang = {
   user: 'User',

@@ -11,6 +11,8 @@ export const auths = pgTable('auths', (t) => ({
 
   token: t.text('token').notNull(),
   revoke: t.boolean('revoke').default(false).notNull(),
+  ip: t.text('ip'),
+  user_agent: t.text('user_agent'),
 
   created_at: t.timestamp('created_at', { precision: 0 }).defaultNow().notNull(),
   updated_at: t.timestamp('updated_at', { precision: 0 }).defaultNow().notNull(),

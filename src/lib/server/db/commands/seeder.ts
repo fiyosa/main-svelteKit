@@ -7,7 +7,7 @@ async function main() {
 
   try {
     // Hash password for security
-    const hashedPassword = await bcrypt.hash('password123', 10)
+    const hashedPassword = await bcrypt.hash('password123', 12)
 
     // Define users data in a JSON array
     const usersToSeed = Array.from({ length: 20 }, (_, i) => ({

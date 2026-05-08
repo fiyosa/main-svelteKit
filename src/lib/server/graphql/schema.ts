@@ -11,12 +11,19 @@ const baseTypeDefs = `#graphql
   }
 `
 
-export const typeDefs = [baseTypeDefs, ...guestTypeDefs, ...userTypeDefs, ...authTypeDefs]
+export const typeDefs = [
+  //
+  baseTypeDefs,
+  ...guestTypeDefs,
+  ...userTypeDefs,
+  ...authTypeDefs,
+]
 
 export const resolvers = {
   Query: {
     ...guestResolvers.Query,
     ...userResolvers.Query,
+    ...authResolvers.Query,
   },
   Mutation: {
     ...authResolvers.Mutation,

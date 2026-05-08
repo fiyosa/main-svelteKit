@@ -3,7 +3,7 @@ import { typeDefs, resolvers } from '$lib/server/graphql/schema'
 import type { RequestHandler } from './$types'
 import { secret } from '$config/secret'
 import { zod } from '$lib/public'
-
+import { appProvider } from '$lib/server/graphql/provider/appProvider'
 // Initialize Apollo Server
 const server = new ApolloServer({
   typeDefs,
@@ -61,6 +61,8 @@ const handler: RequestHandler = async (event) => {
     }
   }
 
+  let httpStatus = 200
+
   const response = await server.executeHTTPGraphQLRequest({
     httpGraphQLRequest: {
       method: request.method,
@@ -68,13 +70,21 @@ const handler: RequestHandler = async (event) => {
       search: new URL(request.url).search,
       body: body,
     },
-    context: async () => ({ event }),
+    context: async () => {
+      const providerContext = await appProvider(event)
+      return {
+        ...providerContext,
+        setHttpStatus: (code: number) => {
+          httpStatus = code
+        },
+      }
+    },
   })
 
   const bodyContent = response.body.kind === 'complete' ? response.body.string : ''
 
   return new Response(bodyContent, {
-    status: response.status ?? 200,
+    status: httpStatus || (response.status ?? 200),
     headers: new Headers(response.headers as unknown as Record<string, string>),
   })
 }
