@@ -3,10 +3,10 @@ import id from 'zod-i18n-map/locales/id/zod.json'
 import en from 'zod-i18n-map/locales/en/zod.json'
 import { zodI18nMap } from 'zod-i18n-map'
 import { ZodType, z, ZodError } from 'zod'
-import { secret } from '$config/secret'
+import secretPublic from '$config/secretPublic'
 
 i18next.init({
-  lng: secret.server.APP_ENV,
+  lng: secretPublic.APP_LOCALE,
   resources: {
     en: { zod: en },
     id: { zod: id },

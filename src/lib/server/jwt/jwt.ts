@@ -1,23 +1,26 @@
-import jwt from 'jsonwebtoken'
-import { secret } from '$config/secret'
-
-export const create = (data: any) => {
-  try {
-    return jwt.sign({ data }, secret.server.APP_SECRET, { expiresIn: '1d' })
-  } catch (_) {
-    return ''
-  }
-}
+import jsonwebtoken from 'jsonwebtoken'
+import secret from '$config/secretPrivate'
 
 interface IVerify {
   data: any
   iat: number
   exp: number
 }
-export const verify = (token: string) => {
-  try {
-    return jwt.verify(token, secret.server.APP_SECRET) as IVerify
-  } catch (err) {
-    return null
+
+export default class jwt {
+  static create = (data: any) => {
+    try {
+      return jsonwebtoken.sign({ data }, secret.APP_SECRET, { expiresIn: secret.APP_JWT_DURATION as any })
+    } catch (_) {
+      return ''
+    }
+  }
+
+  static verify = (token: string) => {
+    try {
+      return jsonwebtoken.verify(token, secret.APP_SECRET) as IVerify
+    } catch (err) {
+      return null
+    }
   }
 }

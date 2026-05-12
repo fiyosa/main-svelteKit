@@ -12,7 +12,7 @@ node_modules
 coverage
 
 vendor
-public
+public/**
 build
 dist
 *.md

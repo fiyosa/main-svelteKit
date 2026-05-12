@@ -19,8 +19,6 @@
     "db:seed": "npx tsx --env-file=.env src/lib/server/db/commands/seeder.ts"
   },
   "dependencies": {
-    "@apollo/client": "^4.1.7",
-    "@apollo/server": "^5.5.0",
     "@sveltejs/adapter-node": "^5.5.4",
     "@sveltejs/kit": "^2.57.0",
     "@sveltejs/vite-plugin-svelte": "^7.0.0",
@@ -29,7 +27,6 @@
     "axios": "^1.15.2",
     "bcryptjs": "^3.0.3",
     "drizzle-orm": "^0.45.2",
-    "graphql": "^16.13.2",
     "hashids": "^2.3.0",
     "i18next": "^26.0.6",
     "jsonwebtoken": "^9.0.3",

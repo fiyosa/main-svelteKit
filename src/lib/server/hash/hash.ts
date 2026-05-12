@@ -1,8 +1,8 @@
-import { secret } from '$config/secret'
+import secretPrivate from '$config/secretPrivate'
 import * as bycrypt from 'bcryptjs'
 import Hashids from 'hashids'
 
-const hashids = new Hashids(secret.server.APP_SECRET, 12)
+const hashids = new Hashids(secretPrivate.APP_SECRET, 12)
 
 export const generate = (data: string): string => {
   try {
@@ -21,7 +21,7 @@ export const verify = (check: string, encrypted: string): boolean => {
   }
 }
 
-export const encode = (data: string | number): string => {
+export const encodeId = (data: string | number): string => {
   try {
     return hashids.encode(data.toString())
   } catch (_) {
@@ -29,7 +29,7 @@ export const encode = (data: string | number): string => {
   }
 }
 
-export const decode = (data: string): string => {
+export const decodeId = (data: string): string => {
   try {
     return hashids.decode(data)[0].toString()
   } catch (_) {

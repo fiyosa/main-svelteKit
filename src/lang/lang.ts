@@ -1,4 +1,4 @@
-import { secret } from '../config/secret'
+import secretPublic from '../config/secretPublic'
 import { en } from './en.lang'
 
 export const lang = { en }
@@ -26,7 +26,7 @@ export interface ILang {
 }
 
 export const __ = (msg: keyof ILang, args?: any) => {
-  let newMsg: string = lang[secret.server.APP_LOCALE as keyof typeof lang][msg]
+  let newMsg: string = lang[secretPublic.APP_LOCALE as keyof typeof lang][msg]
   if (typeof args === 'object' && !Array.isArray(args) && args !== null) {
     Object.keys(args).map((arg: string) => (newMsg = newMsg.replace(':' + arg, args[arg])))
     return newMsg
