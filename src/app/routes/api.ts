@@ -1,7 +1,10 @@
-import { Route } from '../provider/routeProvider'
-import { UserAPIController } from '../controllers/UserAPIController'
+import { Route, clearRoutes } from '../provider/routeProvider'
+import { userController } from '../controllers/userController'
+import { docController } from '../controllers/docController'
 
-Route.get('ping', UserAPIController.ping)
+clearRoutes()
 
-Route.post('generate/verification-code', UserAPIController.generateVerificationCode)
-Route.get('id/{data_id}', UserAPIController.changeStatus).middleware('hash')
+Route.get('openapi.json', docController.openapi)
+
+Route.get('ping', userController.ping)
+Route.get('hash/{data_id}', userController.hash).middleware('hash')

@@ -14,6 +14,10 @@ export interface RouteDef {
 const routes: RouteDef[] = []
 const middlewareRegistry: Record<string, Middleware> = {}
 
+export function clearRoutes() {
+  routes.length = 0
+}
+
 export function registerMiddleware(name: string, middleware: Middleware) {
   middlewareRegistry[name] = middleware
 }
@@ -77,4 +81,11 @@ export const handleRequest: RequestHandler = async (event) => {
   }
 
   return json({ message: 'Endpoint Not Found' }, { status: 404 })
+}
+
+if (import.meta.hot) {
+  import.meta.hot.accept()
+  import.meta.hot.dispose(() => {
+    routes.length = 0
+  })
 }

@@ -33,6 +33,7 @@
     "postgres": "^3.4.9",
     "prettier": "^3.8.1",
     "svelte": "^5.55.2",
+    "swagger-jsdoc": "^6.2.8",
     "tailwindcss": "^4.2.2",
     "typescript": "^6.0.2",
     "vite": "^8.0.7",
@@ -41,6 +42,7 @@
     "zod-i18n-map": "^2.27.0"
   },
   "devDependencies": {
+    "@types/swagger-jsdoc": "^6.0.4",
     "drizzle-kit": "^0.31.10",
     "prettier-plugin-svelte": "^3.5.1",
     "prettier-plugin-tailwindcss": "^0.7.2",
