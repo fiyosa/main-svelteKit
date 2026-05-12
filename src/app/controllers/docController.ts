@@ -1,9 +1,8 @@
 import { json } from '@sveltejs/kit'
-import type { ApiEvent } from '../provider/routeProvider'
 import swaggerJsdoc from 'swagger-jsdoc'
 
 export class docController {
-  static async openapi(event: ApiEvent) {
+  static async openapi() {
     const options = {
       definition: {
         openapi: '3.0.0',
@@ -14,11 +13,14 @@ export class docController {
         },
         servers: [
           {
-            url: '/api',
+            url: 'http://localhost:3000/api',
+          },
+          {
+            url: 'http://localhost:4000/api',
           },
         ],
       },
-      apis: ['./src/app/controllers/*.ts'],
+      apis: ['./src/app/openapi/**/*.yaml'],
     }
 
     const spec = swaggerJsdoc(options)

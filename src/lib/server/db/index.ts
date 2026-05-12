@@ -7,5 +7,5 @@ import logger from '$lib/server/logger/logger'
 export const db = drizzle({
   client: postgres(secretPrivate.DB_URL),
   schema,
-  ...(secretPrivate.APP_ENV === 'development' && { logger: logger.customDrizzleLogger }),
+  ...(secretPrivate.APP_ENV === 'local' && { logger: logger.customDrizzleLogger }),
 })

@@ -1,7 +1,7 @@
 import secretPrivate from '$config/secretPrivate'
 import winston from 'winston'
 
-const isDevelopment = secretPrivate.APP_ENV === 'development'
+const isDevelopment = secretPrivate.APP_ENV === 'local'
 
 const formatMessage = (message: any) => {
   if (typeof message === 'object') {

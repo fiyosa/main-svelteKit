@@ -1,7 +1,7 @@
 import { env as privateEnv } from '$env/dynamic/private'
 
 const secretPrivate = {
-  APP_ENV: privateEnv.PRIVATE_APP_ENV || 'development',
+  APP_ENV: privateEnv.PRIVATE_APP_ENV || 'local',
   APP_LOCALE: privateEnv.PRIVATE_APP_LOCALE || 'en',
   APP_SECRET: privateEnv.PRIVATE_APP_SECRET || 'secret',
 
