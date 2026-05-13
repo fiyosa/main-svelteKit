@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 pnpm build
 
 docker build -t portfolio .
