@@ -1,23 +1,23 @@
-import { json } from '@sveltejs/kit';
-import { registerMiddleware, type ApiEvent } from '../provider/routeProvider';
+import { resError } from '../helper/response'
+import { registerMiddleware, type ApiEvent } from '../provider/routeProvider'
+import t from '$lang/lang'
+import { db } from '../../lib/server/db'
 
 export const authMiddleware = async (event: ApiEvent) => {
-    const token = event.cookies.get('token') || event.request.headers.get('Authorization');
-    
-    if (!token) {
-        return json({ message: 'Unauthorized: No token provided' }, { status: 401 });
-    }
+  let token = event.cookies.get('token')
 
-    // Simulasi verifikasi token dan pengambilan data user
-    // Di dunia nyata, Anda akan memverifikasi JWT atau cek session di DB
-    event.user = {
-        id: 'user_123',
-        name: 'Fiyosa User',
-        email: 'user@fiyosa.com'
-    };
+  if (!token) return resError(t._('unauthorized'), null, 401)
 
-    // Lanjut ke proses berikutnya
-};
+  const auth = await db.query.auths.findFirst({
+    where: (auths, { eq, and }) => and(eq(auths.token, token), eq(auths.revoke, false)),
+    with: {
+      user: true,
+    },
+  })
 
-// Registrasi middleware dengan nama "auth"
-registerMiddleware('auth', authMiddleware);
+  if (!auth || !auth.user) return resError(t._('unauthorized'), null, 401)
+
+  event.user_id = auth.user.id
+}
+
+registerMiddleware('auth', authMiddleware)

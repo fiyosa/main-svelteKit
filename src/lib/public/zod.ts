@@ -19,4 +19,5 @@ const validate = <T>(zodType: ZodType<T>, data: T): T => {
   return zodType.parse(data)
 }
 
+export type infer<T extends ZodType<any, any, any>> = z.infer<T>
 export { z as create, ZodType as type, ZodError, validate }

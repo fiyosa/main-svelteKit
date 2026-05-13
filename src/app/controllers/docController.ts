@@ -1,5 +1,17 @@
 import { json } from '@sveltejs/kit'
 import swaggerJsdoc from 'swagger-jsdoc'
+import secretPrivate from '$config/secretPrivate'
+
+const servers = [
+  {
+    url: 'http://localhost:3000/api',
+    description: 'Local development server (port 3000)',
+  },
+  {
+    url: 'https://fiyosa.me/api',
+    description: 'Production server',
+  },
+]
 
 export class docController {
   static async openapi() {
@@ -7,18 +19,20 @@ export class docController {
       definition: {
         openapi: '3.0.0',
         info: {
-          title: 'Fiyosa API Documentation',
+          title: 'API Documentation',
           version: '1.0.0',
-          description: 'Dokumentasi API yang dihasilkan otomatis dari JSDoc Controller',
+          description: 'API documentation for all available endpoints.',
         },
-        servers: [
-          {
-            url: 'http://localhost:3000/api',
+        servers: secretPrivate.APP_ENV === 'local' ? servers : [servers[1], servers[0]],
+        components: {
+          securitySchemes: {
+            cookieAuth: {
+              type: 'apiKey',
+              in: 'cookie',
+              name: 'token',
+            },
           },
-          {
-            url: 'http://localhost:4000/api',
-          },
-        ],
+        },
       },
       apis: ['./src/app/openapi/**/*.yaml'],
     }

@@ -1,0 +1,13 @@
+paths:
+  /auth/user:
+    get:
+      tags:
+        - Auth
+      summary: get user
+      security:
+        - cookieAuth: []
+      responses:
+        '200':
+          description: User retrieved successfully
+        '401':
+          description: Unauthorized

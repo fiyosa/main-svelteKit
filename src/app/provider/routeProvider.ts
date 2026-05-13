@@ -1,6 +1,6 @@
 import { json, type RequestEvent, type RequestHandler } from '@sveltejs/kit'
 
-export type ApiEvent = RequestEvent<Record<string, string>> & { user?: any }
+export type ApiEvent = RequestEvent<Record<string, string>> & { user_id?: any; body?: any }
 export type Handler = (event: ApiEvent) => Promise<Response> | Response
 export type Middleware = (event: ApiEvent) => Promise<Response | void> | Response | void
 
@@ -53,10 +53,25 @@ export const Route = {
   delete: (path: string, handler: Handler) => register('DELETE', path, handler),
 }
 
-export const handleRequest: RequestHandler = async (event) => {
+export const handleRequest: RequestHandler = async (event: ApiEvent) => {
   const method = event.request.method
   const params = event.params as Record<string, string>
   const path = params.path || ''
+
+  // Automate Body Extraction
+  const contentType = event.request.headers.get('content-type') || ''
+  if (method !== 'GET' && method !== 'DELETE') {
+    try {
+      if (contentType.includes('application/x-www-form-urlencoded') || contentType.includes('multipart/form-data')) {
+        const formData = await event.request.formData()
+        event.body = Object.fromEntries(formData.entries())
+      } else {
+        event.body = await event.request.json()
+      }
+    } catch (err) {
+      event.body = {}
+    }
+  }
 
   for (const route of routes) {
     if (route.method === method) {

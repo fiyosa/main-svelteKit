@@ -1,0 +1,11 @@
+paths:
+  /auth/logout:
+    delete:
+      tags:
+        - Auth
+      summary: Logout user
+      security:
+        - cookieAuth: []
+      responses:
+        '200':
+          description: Logout successful

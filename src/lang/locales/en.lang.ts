@@ -1,4 +1,4 @@
-import { type ILang } from './lang'
+import { type ILang } from '../langType'
 
 export const en: ILang = {
   user: 'User',
@@ -13,6 +13,7 @@ export const en: ILang = {
 
   user_unknown: "User does't exist, please register",
   username_is_wrong: 'Username or password is wrong',
+  login_failed: 'Login failed, please try again',
 
   unauthorized: 'Unauthorized',
   save_failed: ':operator failed to save',

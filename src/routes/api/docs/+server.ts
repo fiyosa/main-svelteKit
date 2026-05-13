@@ -1,5 +1,3 @@
-// routes/+server.ts
-import secretPrivate from '$config/secretPrivate'
 import { ScalarApiReference } from '@scalar/sveltekit'
 import type { RequestHandler } from '@sveltejs/kit'
 
@@ -11,7 +9,9 @@ const render = ScalarApiReference({
   hideClientButton: true,
   telemetry: false,
   theme: 'solarized',
-  showDeveloperTools: secretPrivate.APP_ENV === 'local' ? 'always' : 'never',
+  defaultOpenAllTags: false,
+  defaultOpenFirstTag: false,
+  showDeveloperTools: 'never',
 })
 
 export const GET: RequestHandler = () => {
