@@ -2,6 +2,7 @@ import { json } from '@sveltejs/kit'
 import swaggerJsdoc from 'swagger-jsdoc'
 import secretPrivate from '$config/secretPrivate'
 import { openapiDefinition } from '../openapi/definition.js'
+import { resError } from '$core/helper/response.js'
 
 const servers = [
   { url: 'http://localhost:3000/api', description: 'Local development server (port 3000)' },
@@ -10,6 +11,8 @@ const servers = [
 
 export class docController {
   static async openapi() {
+    if (secretPrivate.APP_ENV !== 'local') return resError('Endpoint Not Found', null, 404)
+
     const options = {
       definition: {
         ...openapiDefinition,
