@@ -1,8 +1,9 @@
+import secretPrivate from '$config/secretPrivate'
 import { ScalarApiReference } from '@scalar/sveltekit'
 import type { RequestHandler } from '@sveltejs/kit'
 
 const render = ScalarApiReference({
-  url: '/api/openapi.json',
+  url: secretPrivate.APP_ENV === 'local' ? '/api/openapi.json' : '/openapi.json',
   agent: { disabled: true },
   layout: 'modern',
   mcp: { disabled: true },
