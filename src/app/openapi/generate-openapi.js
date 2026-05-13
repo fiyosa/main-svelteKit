@@ -17,5 +17,5 @@ const options = {
 
 const spec = swaggerJsdoc(options)
 mkdirSync('./static', { recursive: true })
-writeFileSync('./static/openapi.json', JSON.stringify(spec))
+writeFileSync('./static/api/openapi.json', JSON.stringify(spec))
 console.log('OpenAPI spec generated.')
