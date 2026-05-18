@@ -1,4 +1,4 @@
-FROM node:24-alpine
+FROM oven/bun:alpine
 
 WORKDIR /app
 
@@ -10,4 +10,4 @@ EXPOSE 8000
 
 ENV PORT=8000
 
-CMD ["node", "build"]
+CMD ["bun", "build/index.js"]
