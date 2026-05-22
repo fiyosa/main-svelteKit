@@ -1,10 +1,10 @@
-import { resCatch, resError, resSuccess, resValidate } from '$core/helper/response'
-import type { ApiEvent } from '$core/provider/routeProvider'
+import { resCatch, resError, resSuccess, resValidate } from '../../helper/response'
+import type { ApiEvent } from '../../provider/routeProvider'
 import { db } from '$db'
 import { permissions } from '$db/schema'
 import { eq } from 'drizzle-orm'
 import t from '$lang/lang'
-import { permissionStoreRequest } from '$core/request/policy'
+import { permissionStoreRequest } from '../../request/policy'
 
 export const permissionStoreRepository = async (event: ApiEvent) => {
   try {

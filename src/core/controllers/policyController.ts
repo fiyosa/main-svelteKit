@@ -1,4 +1,9 @@
-import { roleListRepository, permissionListRepository, permissionStoreRepository, permissionDestroyRepository } from '$core/repositories/policy'
+import {
+  roleListRepository,
+  permissionListRepository,
+  permissionStoreRepository,
+  permissionDestroyRepository,
+} from '../repositories/policy'
 
 export const roleList = roleListRepository
 

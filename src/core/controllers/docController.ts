@@ -2,7 +2,7 @@ import { json } from '@sveltejs/kit'
 import swaggerJsdoc from 'swagger-jsdoc'
 import secretPrivate from '$config/secretPrivate'
 import { openapiDefinition } from '../openapi/definition.js'
-import { resError } from '$core/helper/response.js'
+import { resError } from '../helper/response.js'
 
 const servers = [
   { url: 'http://localhost:3000/api', description: 'Local development server (port 3000)' },

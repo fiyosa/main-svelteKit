@@ -1,1 +1,1 @@
-export { GET, POST, PUT, DELETE } from '../../../app/bootstrap/app';
+export { GET, POST, PUT, DELETE } from '../../../core/bootstrap/app'

@@ -1,5 +1,5 @@
-import { Route, clearRoutes } from '$core/provider/routeProvider'
-import { docController, authController, policyController, guestController } from '$core/controllers'
+import { Route, clearRoutes } from '../provider/routeProvider'
+import { docController, authController, policyController, guestController } from '../controllers'
 
 clearRoutes()
 

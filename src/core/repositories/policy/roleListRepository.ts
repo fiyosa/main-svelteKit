@@ -1,8 +1,8 @@
-import { resCatch, resSuccessData } from '$core/helper/response'
-import type { ApiEvent } from '$core/provider/routeProvider'
+import { resCatch, resSuccessData } from '../../helper/response'
+import type { ApiEvent } from '../../provider/routeProvider'
 import { db } from '$db'
 import t from '$lang/lang'
-import { roleListResource } from '$core/resources/policy'
+import { roleListResource } from '../../resources/policy'
 
 export const roleListRepository = async (_event: ApiEvent) => {
   try {

@@ -1,6 +1,6 @@
-import { resCatch, resSuccessData } from '$core/helper/response'
-import type { ApiEvent } from '$core/provider/routeProvider'
-import { userResource } from '$core/resources/auth'
+import { resCatch, resSuccessData } from '../../helper/response'
+import type { ApiEvent } from '../../provider/routeProvider'
+import { userResource } from '../../resources/auth'
 import t from '$lang/lang'
 import { db } from '$db'
 
