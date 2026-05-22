@@ -1,4 +1,4 @@
-import hash from '$lib/server/hash/hash'
+import { hashLib } from '$lib'
 
 export default class loginResource {
   /**
@@ -8,7 +8,7 @@ export default class loginResource {
     if (!user) return null
 
     return {
-      id: hash.encodeId(user.id),
+      id: hashLib.encodeId(user.id),
       username: user.username,
       email: user.email,
     }

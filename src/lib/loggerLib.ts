@@ -10,9 +10,8 @@ const formatMessage = (message: any) => {
   return message
 }
 
-export default class logger {
-  static file = winston.createLogger({
-    ...(isDevelopment && {
+export const fileLogger = isDevelopment
+  ? winston.createLogger({
       format: winston.format.combine(winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' })),
       transports: [
         new winston.transports.File({
@@ -25,11 +24,11 @@ export default class logger {
           ),
         }),
       ],
-    }),
-  })
+    })
+  : winston.createLogger({})
 
-  static console = winston.createLogger({
-    ...(isDevelopment && {
+export const consoleLogger = isDevelopment
+  ? winston.createLogger({
       format: winston.format.combine(winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' })),
       transports: [
         new winston.transports.Console({
@@ -42,16 +41,15 @@ export default class logger {
           ),
         }),
       ],
-    }),
-  })
+    })
+  : winston.createLogger({})
 
-  static customDrizzleLogger = {
-    logQuery: (query: string, params: any[]) => {
-      const formattedQuery = params.reduce((acc, param, index) => {
-        const safeParam = JSON.stringify(param).replace(/^"|"$/g, "'")
-        return acc.replace(`$${index + 1}`, safeParam)
-      }, query)
-      logger.file.info(formattedQuery)
-    },
-  }
+export const customDrizzleLogger = {
+  logQuery: (query: string, params: any[]) => {
+    const formattedQuery = params.reduce((acc, param, index) => {
+      const safeParam = JSON.stringify(param).replace(/^"|"$/g, "'")
+      return acc.replace(`$${index + 1}`, safeParam)
+    }, query)
+    fileLogger.info(formattedQuery)
+  },
 }

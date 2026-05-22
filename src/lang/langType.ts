@@ -19,4 +19,6 @@ export interface ILang {
   something_went_wrong: string
   not_found: string
   err_validation: string
+  forbidden: string
+  endpoint_not_found: string
 }

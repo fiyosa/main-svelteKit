@@ -1,12 +1,11 @@
 import { resCatch, resError, resSuccess, resValidate } from '$core/helper/response'
 import type { ApiEvent } from '$core/provider/routeProvider'
 import { loginRequest } from '$core/request/auth/loginRequest'
-import { db } from '$lib/server/db'
-import hash from '$lib/server/hash/hash'
-import jwt from '$lib/server/jwt/jwt'
+import { db } from '$db'
+import { hashLib, jwtLib } from '$lib'
 import t from '$lang/lang'
 import secretPrivate from '$config/secretPrivate'
-import { auths } from '$lib/server/db/schema'
+import { auths } from '$db/schema'
 
 export const loginRepository = async (event: ApiEvent) => {
   try {
@@ -22,9 +21,9 @@ export const loginRepository = async (event: ApiEvent) => {
 
     if (!user) return resError(t._('user_unknown'))
 
-    if (!hash.verify(password, user.password)) return resError(t._('username_is_wrong'))
+    if (!hashLib.verify(password, user.password)) return resError(t._('username_is_wrong'))
 
-    const token = jwt.create({ id: user.id })
+    const token = jwtLib.create({ id: user.id })
 
     const result = await db
       .insert(auths)

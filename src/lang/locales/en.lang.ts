@@ -21,4 +21,6 @@ export const en: ILang = {
   something_went_wrong: 'Something went wrong',
   not_found: ':operator not found',
   err_validation: 'The data given was invalid',
+  forbidden: 'Forbidden: Insufficient Permissions',
+  endpoint_not_found: 'Endpoint Not Found',
 }

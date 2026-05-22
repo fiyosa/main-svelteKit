@@ -18,6 +18,7 @@ const config = {
       $lang: 'src/lang',
       $config: 'src/config',
       $utils: 'src/utils',
+      $db: 'src/db',
     },
   },
 }

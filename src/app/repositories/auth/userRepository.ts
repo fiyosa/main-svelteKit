@@ -2,7 +2,7 @@ import { resCatch, resSuccessData } from '$core/helper/response'
 import type { ApiEvent } from '$core/provider/routeProvider'
 import userResource from '$core/resources/auth/userResource'
 import t from '$lang/lang'
-import { db } from '$lib/server/db'
+import { db } from '$db'
 
 export const userRepository = async (event: ApiEvent) => {
   try {

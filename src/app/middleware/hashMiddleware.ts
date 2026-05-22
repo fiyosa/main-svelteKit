@@ -1,4 +1,4 @@
-import hash from '$lib/server/hash/hash'
+import { hashLib } from '$lib'
 import { registerMiddleware, type ApiEvent } from '../provider/routeProvider'
 
 export const hashMiddleware = async (event: ApiEvent) => {
@@ -7,7 +7,7 @@ export const hashMiddleware = async (event: ApiEvent) => {
   for (const key in params) {
     const originalValue = params[key]
     if (originalValue) {
-      const decodedValue = hash.decodeId(originalValue)
+      const decodedValue = hashLib.decodeId(originalValue)
       if (decodedValue !== '') {
         params[key] = decodedValue
       }

@@ -1,7 +1,7 @@
 import { resCatch, resSuccess } from '$core/helper/response'
 import type { ApiEvent } from '$core/provider/routeProvider'
-import { db } from '$lib/server/db'
-import { auths } from '$lib/server/db/schema'
+import { db } from '$db'
+import { auths } from '$db/schema'
 import { eq } from 'drizzle-orm'
 import t from '$lang/lang'
 

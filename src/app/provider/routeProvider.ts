@@ -1,4 +1,6 @@
 import { json, type RequestEvent, type RequestHandler } from '@sveltejs/kit'
+import { checkPolicy } from './authProvider'
+import t from '$lang/lang'
 
 export type ApiEvent = RequestEvent<Record<string, string>> & { user_id?: any; body?: any }
 export type Handler = (event: ApiEvent) => Promise<Response> | Response
@@ -9,6 +11,7 @@ export interface RouteDef {
   pattern: RegExp
   handler: Handler
   middlewares: string[]
+  policies: string[]
 }
 
 const routes: RouteDef[] = []
@@ -32,6 +35,7 @@ function register(method: string, path: string, handler: Handler) {
     pattern: new RegExp(regexStr),
     handler,
     middlewares: [],
+    policies: [],
   }
 
   routes.push(route)
@@ -39,6 +43,10 @@ function register(method: string, path: string, handler: Handler) {
   const chain = {
     middleware: (name: string) => {
       route.middlewares.push(name)
+      return chain
+    },
+    policy: (permission: string) => {
+      route.policies.push(permission)
       return chain
     },
   }
@@ -90,12 +98,20 @@ export const handleRequest: RequestHandler = async (event: ApiEvent) => {
           }
         }
 
+        // Execute Policies
+        for (const permission of route.policies) {
+          const isAllowed = await checkPolicy(event, permission)
+          if (!isAllowed) {
+            return json({ message: t._('forbidden') }, { status: 403 })
+          }
+        }
+
         return route.handler(event)
       }
     }
   }
 
-  return json({ message: 'Endpoint Not Found' }, { status: 404 })
+  return json({ message: t._('endpoint_not_found') }, { status: 404 })
 }
 
 if (import.meta.hot) {

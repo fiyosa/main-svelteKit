@@ -9,6 +9,6 @@ Route.get('openapi.json', docController.openapi)
 
 Route.post('auth/login', authController.login)
 Route.delete('auth/logout', authController.logout).middleware('auth')
-Route.get('auth/user', authController.user).middleware('auth')
+Route.get('auth/user', authController.user).middleware('auth').policy('user')
 
 Route.get('ping', guestController.ping)

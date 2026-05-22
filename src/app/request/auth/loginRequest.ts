@@ -1,6 +1,6 @@
-import { zod } from '$lib/public'
+import { zodLib } from '$lib'
 
-export const loginRequest = zod.create.object({
-  username: zod.create.string(),
-  password: zod.create.string(),
+export const loginRequest = zodLib.create.object({
+  username: zodLib.create.string(),
+  password: zodLib.create.string(),
 })

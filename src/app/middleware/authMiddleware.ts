@@ -1,7 +1,7 @@
 import { resError } from '../helper/response'
 import { registerMiddleware, type ApiEvent } from '../provider/routeProvider'
 import t from '$lang/lang'
-import { db } from '../../lib/server/db'
+import { db } from '$db'
 
 export const authMiddleware = async (event: ApiEvent) => {
   let token = event.cookies.get('token')
