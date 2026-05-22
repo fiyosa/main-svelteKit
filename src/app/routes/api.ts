@@ -7,8 +7,10 @@ clearRoutes()
 
 Route.get('openapi.json', docController.openapi)
 
-Route.post('auth/login', authController.login)
-Route.delete('auth/logout', authController.logout).middleware('auth')
-Route.get('auth/user', authController.user).middleware('auth').policy('user')
+Route.group('auth', (group) => {
+  group.post('login', authController.login)
+  group.delete('logout', authController.logout).middleware('auth')
+  group.get('user', authController.user).middleware('auth')
+})
 
 Route.get('ping', guestController.ping)

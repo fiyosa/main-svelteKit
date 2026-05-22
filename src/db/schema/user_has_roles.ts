@@ -6,12 +6,16 @@ import { roles } from './roles'
 export const user_has_roles = pgTable(
   'user_has_roles',
   (t) => ({
-    user_id: t.bigint('user_id', { mode: 'number' }).notNull().references(() => users.id, { onDelete: 'cascade' }),
-    role_id: t.bigint('role_id', { mode: 'number' }).notNull().references(() => roles.id, { onDelete: 'cascade' }),
+    user_id: t
+      .bigint('user_id', { mode: 'number' })
+      .notNull()
+      .references(() => users.id, { onDelete: 'cascade', onUpdate: 'cascade' }),
+    role_id: t
+      .bigint('role_id', { mode: 'number' })
+      .notNull()
+      .references(() => roles.id, { onDelete: 'cascade', onUpdate: 'cascade' }),
   }),
-  (t) => [
-    primaryKey({ columns: [t.user_id, t.role_id] }),
-  ]
+  (t) => [primaryKey({ columns: [t.user_id, t.role_id] })]
 )
 
 export const userHasRolesRelations = relations(user_has_roles, ({ one }) => ({

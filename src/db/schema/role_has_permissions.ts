@@ -9,11 +9,11 @@ export const role_has_permissions = pgTable(
     role_id: t
       .bigint('role_id', { mode: 'number' })
       .notNull()
-      .references(() => roles.id, { onDelete: 'cascade' }),
+      .references(() => roles.id, { onDelete: 'cascade', onUpdate: 'cascade' }),
     permission_id: t
       .bigint('permission_id', { mode: 'number' })
       .notNull()
-      .references(() => permissions.id, { onDelete: 'cascade' }),
+      .references(() => permissions.id, { onDelete: 'cascade', onUpdate: 'cascade' }),
   }),
   (t) => [primaryKey({ columns: [t.role_id, t.permission_id] })]
 )

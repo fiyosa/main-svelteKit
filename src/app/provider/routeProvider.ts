@@ -54,11 +54,60 @@ function register(method: string, path: string, handler: Handler) {
   return chain
 }
 
-export const Route = {
+export interface RouterChain {
+  middleware: (name: string) => RouterChain
+  policy: (permission: string) => RouterChain
+}
+
+export interface RouterType {
+  get: (path: string, handler: Handler) => RouterChain
+  post: (path: string, handler: Handler) => RouterChain
+  put: (path: string, handler: Handler) => RouterChain
+  delete: (path: string, handler: Handler) => RouterChain
+  group: (prefix: string, callback: (group: RouterType) => void) => RouterChain
+}
+
+function createGroup(prefix: string, callback: (group: RouterType) => void): RouterChain {
+  const startIndex = routes.length
+
+  const groupRouter: RouterType = {
+    get: (path: string, handler: Handler) => register('GET', `${prefix}/${path}`.replace(/\/+/g, '/'), handler),
+    post: (path: string, handler: Handler) => register('POST', `${prefix}/${path}`.replace(/\/+/g, '/'), handler),
+    put: (path: string, handler: Handler) => register('PUT', `${prefix}/${path}`.replace(/\/+/g, '/'), handler),
+    delete: (path: string, handler: Handler) => register('DELETE', `${prefix}/${path}`.replace(/\/+/g, '/'), handler),
+    group: (subPrefix: string, subCallback: (subGroup: RouterType) => void) =>
+      createGroup(`${prefix}/${subPrefix}`.replace(/\/+/g, '/'), subCallback),
+  }
+
+  callback(groupRouter)
+
+  const endIndex = routes.length
+  const addedRoutes = routes.slice(startIndex, endIndex)
+
+  const chain: RouterChain = {
+    middleware: (name: string) => {
+      addedRoutes.forEach((route) => {
+        if (!route.middlewares.includes(name)) route.middlewares.push(name)
+      })
+      return chain
+    },
+    policy: (permission: string) => {
+      addedRoutes.forEach((route) => {
+        if (!route.policies.includes(permission)) route.policies.push(permission)
+      })
+      return chain
+    },
+  }
+
+  return chain
+}
+
+export const Route: RouterType = {
   get: (path: string, handler: Handler) => register('GET', path, handler),
   post: (path: string, handler: Handler) => register('POST', path, handler),
   put: (path: string, handler: Handler) => register('PUT', path, handler),
   delete: (path: string, handler: Handler) => register('DELETE', path, handler),
+  group: (prefix: string, callback: (group: RouterType) => void) => createGroup(prefix, callback),
 }
 
 export const handleRequest: RequestHandler = async (event: ApiEvent) => {

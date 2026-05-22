@@ -16,7 +16,7 @@
     "db:migrate": "drizzle-kit migrate",
     "db:pull": "drizzle-kit pull",
     "db:push": "drizzle-kit push",
-    "db:seed": "npx tsx --env-file=.env src/lib/server/db/commands/seeder.ts"
+    "db:seed": "npx tsx --env-file=.env src/db/commands/seeder.ts"
   },
   "dependencies": {
     "@scalar/sveltekit": "^0.2.14",

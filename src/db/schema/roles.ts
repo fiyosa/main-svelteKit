@@ -7,6 +7,7 @@ export const roles = pgTable('roles', (t) => ({
   id: t.bigserial('id', { mode: 'number' }).primaryKey(),
 
   name: t.varchar('name').unique().notNull(),
+  notes: t.varchar('notes'),
 
   created_at: t.timestamp('created_at', { precision: 0 }).defaultNow().notNull(),
   updated_at: t.timestamp('updated_at', { precision: 0 }).defaultNow().notNull(),

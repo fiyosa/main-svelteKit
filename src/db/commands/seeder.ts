@@ -9,6 +9,24 @@ async function main() {
     // Hash password for security
     const hashedPassword = await bcrypt.hash('password123', 12)
 
+    // Insert admin user
+    const [adminUser] = await db
+      .insert(schema.users)
+      .values({
+        username: 'admin',
+        email: 'admin@example.com',
+        password: hashedPassword,
+      })
+      .returning()
+
+    await db.insert(schema.user_details).values({
+      user_id: adminUser.id,
+      name: 'Admin',
+      lastName: 'User',
+    })
+
+    console.log('👑 Admin user seeded successfully')
+
     // Define users data in a JSON array
     const usersToSeed = Array.from({ length: 20 }, (_, i) => ({
       username: `user${i + 1}`,

@@ -7,7 +7,7 @@ export const auths = pgTable('auths', (t) => ({
   user_id: t
     .bigint('user_id', { mode: 'number' })
     .notNull()
-    .references(() => users.id),
+    .references(() => users.id, { onUpdate: 'cascade', onDelete: 'cascade' }),
 
   token: t.text('token').notNull(),
   revoke: t.boolean('revoke').default(false).notNull(),
