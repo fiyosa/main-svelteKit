@@ -1,6 +1,8 @@
 import { type ILang } from '../langType'
 
 export const en: ILang = {
+  role: 'Role',
+  permission: 'Permission',
   user: 'User',
   contact: 'Contact',
   address: 'Address',

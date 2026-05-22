@@ -1,4 +1,6 @@
 export interface ILang {
+  role: string
+  permission: string
   user: string
   contact: string
   address: string

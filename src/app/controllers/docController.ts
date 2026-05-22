@@ -9,19 +9,17 @@ const servers = [
   { url: 'https://fiyosa.me/api', description: 'Production server' },
 ]
 
-export class docController {
-  static async openapi() {
-    if (secretPrivate.APP_ENV !== 'local') return resError('Endpoint Not Found', null, 404)
+export const openapi = async () => {
+  if (secretPrivate.APP_ENV !== 'local') return resError('Endpoint Not Found', null, 404)
 
-    const options = {
-      definition: {
-        ...openapiDefinition,
-        servers: secretPrivate.APP_ENV === 'local' ? servers : [servers[1], servers[0]],
-      },
-      apis: ['./src/app/openapi/**/*.yaml'],
-    }
-
-    const spec = swaggerJsdoc(options)
-    return json(spec)
+  const options = {
+    definition: {
+      ...openapiDefinition,
+      servers: secretPrivate.APP_ENV === 'local' ? servers : [servers[1], servers[0]],
+    },
+    apis: ['./src/app/openapi/**/*.yaml'],
   }
+
+  const spec = swaggerJsdoc(options)
+  return json(spec)
 }

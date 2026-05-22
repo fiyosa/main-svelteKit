@@ -1,0 +1,68 @@
+paths:
+  /policy/role:
+    get:
+      tags:
+        - Policy
+      summary: List roles with permissions
+      description: Mengembalikan daftar semua roles beserta permissions-nya. Diurutkan berdasarkan nama role dan nama permission.
+      security:
+        - cookieAuth: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Role retrieved successfully
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: number
+                          example: 1
+                        name:
+                          type: string
+                          example: admin
+                        notes:
+                          type: string
+                          nullable: true
+                        created_at:
+                          type: string
+                          format: date-time
+                        updated_at:
+                          type: string
+                          format: date-time
+                        deleted_at:
+                          type: string
+                          format: date-time
+                          nullable: true
+                        permissions:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: number
+                                example: 1
+                              name:
+                                type: string
+                                example: create-user
+                              notes:
+                                type: string
+                                nullable: true
+                              created_at:
+                                type: string
+                                format: date-time
+                              updated_at:
+                                type: string
+                                format: date-time
+                              deleted_at:
+                                type: string
+                                format: date-time
+                                nullable: true

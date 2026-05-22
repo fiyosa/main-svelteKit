@@ -1,7 +1,5 @@
 import { Route, clearRoutes } from '$core/provider/routeProvider'
-import { docController } from '$core/controllers/docController'
-import authController from '$core/controllers/authController'
-import guestController from '$core/controllers/guestController'
+import { docController, authController, policyController, guestController } from '$core/controllers'
 
 clearRoutes()
 
@@ -11,6 +9,14 @@ Route.group('auth', (group) => {
   group.post('login', authController.login)
   group.delete('logout', authController.logout).middleware('auth')
   group.get('user', authController.user).middleware('auth')
+})
+
+Route.group('policy', (group) => {
+  group.get('role', policyController.roleList)
+
+  group.get('permission', policyController.permission.list)
+  group.post('permission', policyController.permission.store)
+  group.delete('permission/:id', policyController.permission.destroy).middleware('hash')
 })
 
 Route.get('ping', guestController.ping)

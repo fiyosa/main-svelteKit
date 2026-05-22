@@ -1,6 +1,6 @@
 import { resCatch, resError, resSuccess, resValidate } from '$core/helper/response'
 import type { ApiEvent } from '$core/provider/routeProvider'
-import { loginRequest } from '$core/request/auth/loginRequest'
+import { loginRequest } from '$core/request/auth'
 import { db } from '$db'
 import { hashLib, jwtLib } from '$lib'
 import t from '$lang/lang'

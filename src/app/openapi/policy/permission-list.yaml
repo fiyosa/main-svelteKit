@@ -1,0 +1,44 @@
+paths:
+  /policy/permission:
+    get:
+      tags:
+        - Policy
+      summary: List permissions
+      description: Mengembalikan daftar semua permissions. Diurutkan berdasarkan nama permission.
+      security:
+        - cookieAuth: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Permission retrieved successfully
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: number
+                          example: 1
+                        name:
+                          type: string
+                          example: create-user
+                        notes:
+                          type: string
+                          nullable: true
+                        created_at:
+                          type: string
+                          format: date-time
+                        updated_at:
+                          type: string
+                          format: date-time
+                        deleted_at:
+                          type: string
+                          format: date-time
+                          nullable: true
