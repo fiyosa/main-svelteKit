@@ -14,9 +14,9 @@ Route.group('auth', (group) => {
 Route.group('policy', (group) => {
   group.get('role', policyController.roleList)
 
-  group.get('permission', policyController.permission.list)
-  group.post('permission', policyController.permission.store)
-  group.delete('permission/:id', policyController.permission.destroy).middleware('hash')
+  group.get('permission', policyController.permissionList)
+  group.post('permission', policyController.permissionStore)
+  group.delete('permission/:id', policyController.permissionDestroy).middleware('hash')
 })
 
 Route.get('ping', guestController.ping)

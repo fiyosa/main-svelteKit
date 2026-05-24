@@ -14,7 +14,7 @@ const config = {
     alias: {
       $assets: 'src/assets',
       $css: 'src/css',
-      $core: 'src/app',
+      $core: 'src/core',
       $lang: 'src/lang',
       $config: 'src/config',
       $utils: 'src/utils',

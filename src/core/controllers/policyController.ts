@@ -75,6 +75,12 @@ export const roleList = roleListRepository
  *                       created_at: { type: string, format: date-time }
  *                       updated_at: { type: string, format: date-time }
  *                       deleted_at: { type: string, format: date-time, nullable: true }
+ */
+export const permissionList = permissionListRepository
+
+/**
+ * @openapi
+ * /policy/permission:
  *   post:
  *     tags: [Policy]
  *     summary: Create permission
@@ -93,6 +99,11 @@ export const roleList = roleListRepository
  *     responses:
  *       '200': { description: Permission saved successfully }
  *       '400': { description: Validation error or duplicate name }
+ */
+export const permissionStore = permissionStoreRepository
+
+/**
+ * @openapi
  * /policy/permission/{id}:
  *   delete:
  *     tags: [Policy]
@@ -105,8 +116,4 @@ export const roleList = roleListRepository
  *       '200': { description: Permission deleted successfully }
  *       '404': { description: Permission not found }
  */
-export const permission = {
-  list: permissionListRepository,
-  store: permissionStoreRepository,
-  destroy: permissionDestroyRepository,
-}
+export const permissionDestroy = permissionDestroyRepository
