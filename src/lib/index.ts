@@ -1,3 +1,4 @@
+export * as axiosLib from './axiosLib'
 export * as hashLib from './hashLib'
 export * as jwtLib from './jwtLib'
 export * as loggerLib from './loggerLib'

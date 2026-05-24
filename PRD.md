@@ -3,7 +3,7 @@
 ## 1. Project Overview
 
 - **Name:** Portfolio
-- **Stack:** SvelteKit 2 + TypeScript + PostgreSQL (Drizzle ORM) + Tailwind CSS
+- **Stack:** SvelteKit 2 + TypeScript + PostgreSQL (Drizzle ORM) + Tailwind CSS + TanStack Query
 - **Server:** Node.js (via `@sveltejs/adapter-node`)
 - **Deployment:** Docker (Alpine + Bun runtime, port 8000)
 - **Purpose:** Backend API with RBAC auth system, serving as a portfolio backend
@@ -101,6 +101,7 @@
 │   │
 │   ├── lib/                   # Libraries (SvelteKit built-in $lib alias)
 │   │   ├── index.ts
+│   │   ├── axiosLib.ts        # Axios instance + query builder + error handler
 │   │   ├── hashLib.ts         # bcrypt + Hashids
 │   │   ├── jwtLib.ts          # JWT sign/verify
 │   │   ├── loggerLib.ts       # Winston logger
@@ -278,6 +279,7 @@ export const db = drizzle({
 
 | File | Exports | Purpose |
 |------|---------|---------|
+| `axiosLib.ts` | `headerAxios`, `throwAxios`, `createQueryStr`, `instance` | Axios instance + URLSearchParams query builder + error handler |
 | `hashLib.ts` | `generate`, `verify`, `encodeId`, `decodeId` | bcrypt hashing + Hashids encoding |
 | `jwtLib.ts` | `create`, `verify` | JWT sign/verify with APP_SECRET |
 | `loggerLib.ts` | `fileLogger`, `consoleLogger`, `customDrizzleLogger` | Winston logging |

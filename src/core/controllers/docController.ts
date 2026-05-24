@@ -17,7 +17,7 @@ export const openapi = async () => {
       ...openapiDefinition,
       servers: secretPrivate.APP_ENV === 'local' ? servers : [servers[1], servers[0]],
     },
-    apis: ['./src/app/openapi/**/*.yaml'],
+    apis: ['./src/core/openapi/**/*.yaml'],
   }
 
   const spec = swaggerJsdoc(options)
