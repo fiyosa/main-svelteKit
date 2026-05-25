@@ -26,7 +26,22 @@
 │   │       └── docs/
 │   │           └── +server.ts   # Scalar API Reference UI
 │   │
-│   ├── core/                    # Core application (aliased as $core)
+│   ├── api/                      # Frontend API hooks ($api alias)
+│   │   ├── index.ts               # Barrel export * as authApi, guestApi, policyApi
+│   │   ├── auth/
+│   │   │   ├── index.ts           # export { postLogin, deleteLogout, getUser }
+│   │   │   ├── postLogin.ts       # POST /auth/login — useMutation
+│   │   │   ├── deleteLogout.ts    # DELETE /auth/logout — useMutation
+│   │   │   └── getUser.ts         # GET /auth/user — useQuery
+│   │   ├── guest/
+│   │   │   ├── index.ts           # export { getPing }
+│   │   │   └── getPing.ts         # GET /ping — useQuery
+│   │   └── policy/
+│   │       ├── index.ts           # export { getRoleList, getPermissionList, postPermission, deletePermission }
+│   │       ├── getRoleList.ts     # GET /policy/role — useQuery
+│   │       ├── getPermissionList.ts# GET /policy/permission — useQuery
+│   │       ├── postPermission.ts  # POST /policy/permission — useMutation
+│   │       └── deletePermission.ts# DELETE /policy/permission/:id — useMutation
 │   │   ├── bootstrap/
 │   │   │   └── app.ts           # Entry point: imports providers + routes, exports handlers
 │   │   ├── controllers/         # Thin controllers → delegates to repositories
@@ -96,7 +111,8 @@
 │   │   ├── hashLib.ts           # bcrypt + Hashids
 │   │   ├── jwtLib.ts            # JWT sign/verify
 │   │   ├── loggerLib.ts         # Winston logger
-│   │   └── zodLib.ts            # Zod + i18n validation
+│   │   ├── zodLib.ts            # Zod + i18n validation
+│   │   └── tanstackUtil.ts      # QueryClient + useQuery/useMutation wrappers
 │   │
 │   ├── utils/                   # Simple utility functions ($utils alias)
 │   │   ├── index.ts
@@ -275,6 +291,7 @@ export const db = drizzle({
 | `jwtLib.ts` | `create`, `verify` | JWT sign/verify with APP_SECRET |
 | `loggerLib.ts` | `fileLogger`, `consoleLogger`, `customDrizzleLogger` | Winston logging |
 | `zodLib.ts` | `create` (z), `type` (ZodType), `ZodError`, `validate`, `infer` | Zod with i18n validation messages |
+| `tanstackUtil.ts` | `useQuery`, `useMutation`, `queryClient` | TanStack Query wrappers with global defaults (refetchOnWindowFocus: false, retry: false, staleTime: 15m) |
 
 ### Utilities (`src/utils/` — `$utils` alias):
 
@@ -291,6 +308,7 @@ export const db = drizzle({
 
 | Alias | Path |
 |-------|------|
+| `$api` | `src/api` |
 | `$assets` | `src/assets` |
 | `$css` | `src/css` |
 | `$core` | `src/core` |
@@ -331,6 +349,7 @@ Custom i18n system at `src/lang/`:
 - **Controllers:** `export const` functions that delegate to repositories. For multiple methods on same resource, use nested object (e.g. `export const permission = { list, store, destroy }`). Barrel via `src/core/controllers/index.ts`.
 - **Repositories:** `export const repositoryName = async (event: ApiEvent) => { ... }`; **1 file per API endpoint** with specific name (`roleListRepository`, `permissionStoreRepository`). Barrel via `index.ts` per subfolder.
 - **Resources:** `export const single()` dan `export const collection()`, bukan class. Setiap field `id` wajib di-encode dengan `hashLib.encodeId()`. Barrel via `index.ts` per subfolder.
+- **API hooks:** `src/api/` berisi wrapper TanStack Query per endpoint. Naming: `{method}{Name}` (getUser, postLogin, deleteLogout, dll). Barrel per subfolder. Query function menerima `options?` untuk override default.
 - **Request schemas:** Zod schemas in `src/core/request/`, barrel via `index.ts` per subfolder.
 - **Middleware:** `export const middlewareName = async (event) => { ... }` + `registerMiddleware('name', fn)`
 - **Imports:** Use path aliases (`$core/`, `$db/`, `$lib/`, `$config/`, etc.) or relative imports within `src/core/`.
