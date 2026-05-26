@@ -35,7 +35,7 @@
 │   │   │   └── getUser.ts         # GET /auth/user — useQuery
 │   │   ├── guest/
 │   │   │   ├── index.ts           # export { getPing }
-│   │   │   └── getPing.ts         # GET /ping — useQuery
+│   │   │   └── getPing.ts         # GET /guest/ping — useQuery
 │   │   └── policy/
 │   │       ├── index.ts           # export { getRoleList, getPermissionList, postPermission, deletePermission }
 │   │       ├── getRoleList.ts     # GET /policy/role — useQuery
@@ -276,7 +276,7 @@ export const db = drizzle({
 | GET | `/api/policy/permission` | - | - | `policyController.permissionList` | List permissions |
 | POST | `/api/policy/permission` | - | - | `policyController.permissionStore` | Create permission |
 | DELETE | `/api/policy/permission/:id` | - | - | `policyController.permissionDestroy` | Delete permission (soft) |
-| GET | `/api/ping` | - | - | `guestController.ping` | Health check |
+| GET | `/api/guest/ping` | - | - | `guestController.ping` | Health check |
 
 ---
 

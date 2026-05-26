@@ -19,4 +19,6 @@ Route.group('policy', (group) => {
   group.delete('permission/:id', policyController.permissionDestroy).middleware('hash')
 })
 
-Route.get('ping', guestController.ping)
+Route.group('guest', (group) => {
+  group.get('ping', guestController.ping)
+})

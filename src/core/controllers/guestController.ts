@@ -2,7 +2,7 @@ import { resSuccess } from '../helper/response'
 
 /**
  * @openapi
- * /ping:
+ * /guest/ping:
  *   get:
  *     tags: [Guest]
  *     summary: Ping Server
